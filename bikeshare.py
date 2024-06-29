@@ -1,8 +1,11 @@
 import time
 import pandas as pd
 import numpy as np
+from colorama import Fore, Style, init
 
-# Các hằng số
+# Initialize colorama
+init(autoreset=True)
+
 CITY_DATA = {
     '1': 'chicago.csv',
     '2': 'new_york_city.csv',
@@ -20,11 +23,11 @@ def get_filters():
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
-    print('Hello! Let\'s explore some US bikeshare data!')
+    print(Fore.GREEN + 'Hello! Let\'s explore some US bikeshare data!')
 
     # Get user input for city (chicago, new york city, washington)
     while True:
-        print('Please choose a city:')
+        print(Fore.CYAN + 'Please choose a city:')
         print('1. Chicago')
         print('2. New York City')
         print('3. Washington')
@@ -32,11 +35,11 @@ def get_filters():
         if city in CITY_DATA:
             break
         else:
-            print('Invalid input. Please enter a number between 1 and 3.')
+            print(Fore.RED + 'Invalid input. Please enter a number between 1 and 3.')
 
     # Get user input for month (all, january, february, ... , june)
     while True:
-        print('Please choose a month:')
+        print(Fore.CYAN + 'Please choose a month:')
         print('1. January')
         print('2. February')
         print('3. March')
@@ -52,11 +55,11 @@ def get_filters():
                 month = MONTHS[int(month) - 1]
             break
         else:
-            print('Invalid input. Please enter a number between 1 and 7.')
+            print(Fore.RED + 'Invalid input. Please enter a number between 1 and 7.')
 
     # Get user input for day of week (all, monday, tuesday, ... sunday)
     while True:
-        print('Please choose a day of the week:')
+        print(Fore.CYAN + 'Please choose a day of the week:')
         print('1. Monday')
         print('2. Tuesday')
         print('3. Wednesday')
@@ -73,7 +76,7 @@ def get_filters():
                 day = DAYS[int(day) - 1]
             break
         else:
-            print('Invalid input. Please enter a number between 1 and 8.')
+            print(Fore.RED + 'Invalid input. Please enter a number between 1 and 8.')
 
     return city, month, day
 
@@ -116,97 +119,97 @@ def load_data(city, month, day):
 
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
-    print('\nCalculating The Most Frequent Times of Travel...\n')
+    print(Fore.YELLOW + '\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
 
     # Display the most common month
     popular_month = df['month'].mode()[0]
-    print('Most Popular Month:', popular_month)
+    print(Fore.GREEN + 'Most Popular Month:', popular_month)
 
     # Display the most common day of week
     popular_day = df['day_of_week'].mode()[0]
-    print('Most Popular Day of Week:', popular_day)
+    print(Fore.GREEN + 'Most Popular Day of Week:', popular_day)
 
     # Display the most common start hour
     df['hour'] = df['Start Time'].dt.hour
     popular_hour = df['hour'].mode()[0]
-    print('Most Popular Start Hour:', popular_hour)
+    print(Fore.GREEN + 'Most Popular Start Hour:', popular_hour)
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
-    print(SEPARATOR)
+    print(Fore.CYAN + "\nThis took %s seconds." % (time.time() - start_time))
+    print(Fore.CYAN + SEPARATOR)
 
 
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
-    print('\nCalculating The Most Popular Stations and Trip...\n')
+    print(Fore.YELLOW + '\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
 
     # Display most commonly used start station
     popular_start_station = df['Start Station'].mode()[0]
-    print('Most Popular Start Station:', popular_start_station)
+    print(Fore.GREEN + 'Most Popular Start Station:', popular_start_station)
 
     # Display most commonly used end station
     popular_end_station = df['End Station'].mode()[0]
-    print('Most Popular End Station:', popular_end_station)
+    print(Fore.GREEN + 'Most Popular End Station:', popular_end_station)
 
     # Display most frequent combination of start station and end station trip
     df['trip'] = df['Start Station'] + " to " + df['End Station']
     popular_trip = df['trip'].mode()[0]
-    print('Most Popular Trip:', popular_trip)
+    print(Fore.GREEN + 'Most Popular Trip:', popular_trip)
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
-    print(SEPARATOR)
+    print(Fore.CYAN + "\nThis took %s seconds." % (time.time() - start_time))
+    print(Fore.CYAN + SEPARATOR)
 
 
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
-    print('\nCalculating Trip Duration...\n')
+    print(Fore.YELLOW + '\nCalculating Trip Duration...\n')
     start_time = time.time()
 
     # Display total travel time
     total_travel_time = df['Trip Duration'].sum()
-    print('Total Travel Time:', total_travel_time)
+    print(Fore.GREEN + 'Total Travel Time:', total_travel_time)
 
     # Display mean travel time
     mean_travel_time = df['Trip Duration'].mean()
-    print('Mean Travel Time:', mean_travel_time)
+    print(Fore.GREEN + 'Mean Travel Time:', mean_travel_time)
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
-    print(SEPARATOR)
+    print(Fore.CYAN + "\nThis took %s seconds." % (time.time() - start_time))
+    print(Fore.CYAN + SEPARATOR)
 
 
 def user_stats(df):
     """Displays statistics on bikeshare users."""
-    print('\nCalculating User Stats...\n')
+    print(Fore.YELLOW + '\nCalculating User Stats...\n')
     start_time = time.time()
 
     # Display counts of user types
     user_types = df['User Type'].value_counts()
-    print('User Types:\n', user_types)
+    print(Fore.GREEN + 'User Types:\n', user_types)
 
     # Display counts of gender
     if 'Gender' in df:
         gender_counts = df['Gender'].value_counts()
-        print('\nGender Counts:\n', gender_counts)
+        print(Fore.GREEN + '\nGender Counts:\n', gender_counts)
 
     # Display earliest, most recent, and most common year of birth
     if 'Birth Year' in df:
         earliest_year = int(df['Birth Year'].min())
         recent_year = int(df['Birth Year'].max())
         common_year = int(df['Birth Year'].mode()[0])
-        print('\nEarliest Year:', earliest_year)
-        print('Most Recent Year:', recent_year)
-        print('Most Common Year:', common_year)
+        print(Fore.GREEN + '\nEarliest Year:', earliest_year)
+        print(Fore.GREEN + 'Most Recent Year:', recent_year)
+        print(Fore.GREEN + 'Most Common Year:', common_year)
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
-    print(SEPARATOR)
+    print(Fore.CYAN + "\nThis took %s seconds." % (time.time() - start_time))
+    print(Fore.CYAN + SEPARATOR)
 
 
 def display_raw_data(df):
     """Displays raw data upon request by the user."""
     row = 0
     while True:
-        display = input('Would you like to see 5 lines of raw data? Enter yes or no: ').lower()
+        display = input(Fore.CYAN + 'Would you like to see 5 lines of raw data? Enter yes or no: ').lower()
         if display == 'yes':
             print(df.iloc[row:row+5])
             row += 5
@@ -225,7 +228,7 @@ def main():
         user_stats(df)
         display_raw_data(df)
 
-        restart = input('\nWould you like to restart? Enter yes or no.\n').lower()
+        restart = input(Fore.CYAN + '\nWould you like to restart? Enter yes or no.\n').lower()
         if restart != 'yes':
             break
 
