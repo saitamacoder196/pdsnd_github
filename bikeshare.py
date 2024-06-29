@@ -218,6 +218,12 @@ def display_raw_data(df):
 
 
 def main():
+    """
+    The main function to run the bikeshare data analysis program.
+    - Prompts the user to select a city, month, and day to filter the data.
+    - Loads the filtered data and displays various statistics.
+    - Prompts the user to view raw data and restart the program.
+    """
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)

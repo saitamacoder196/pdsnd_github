@@ -125,6 +125,10 @@ Would you like to restart? Enter yes or no.
 - `washington.csv`
 - `requirements.txt`
 
+## Acknowledgements
+- Special thanks to Udacity for providing the project framework.
+- Thanks to the community contributors for their support and suggestions.
+
 ## Credits
 - [Udacity's GitHub Project Repository](https://github.com/udacity/pdsnd_github)
 - [Markdown Guide from GitHub](https://guides.github.com/features/mastering-markdown/)
